@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" ",
-    "start-first": "wdio --spec=select-collection"
+    "start-first": "wdio --spec=select-collection",
+    "wdio": "wdio"
   },
   "keywords": [],
   "author": "",
