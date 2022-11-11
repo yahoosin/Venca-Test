@@ -55,14 +55,20 @@ exports.config = {
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
         maxInstances: 5,
-        //
+        
         browserName: 'chrome',
-        acceptInsecureCerts: true
+        acceptInsecureCerts: true,
+        "goog:chromeOptions":{
+            mobileEmulation: {
+                deviceName: "Nexus 5"
+            }
+        }
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
         // excludeDriverLogs: ['bugreport', 'server'],
-    }],
+    }    
+    ],
     //
     // ===================
     // Test Configurations
@@ -189,15 +195,16 @@ exports.config = {
     // beforeSession: function (config, capabilities, specs, cid) {
     // },
     /**
+     * 
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: async function (capabilities, specs) {
-    //     await browser.setWindowSize(1440, 900);
-    // },
+    before: async function (capabilities, specs) {
+        browser.maximizeWindow();        
+    },    
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name
@@ -209,9 +216,9 @@ exports.config = {
      * Hook that gets executed before the suite starts
      * @param {Object} suite suite details
      */
-    beforeSuite: async function (suite) {
-        await browser.maximizeWindow();
-    },
+    // beforeSuite: async function (suite) {
+    //     await browser.maximizeWindow();
+    // },    
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
@@ -241,8 +248,6 @@ exports.config = {
      */
     // afterTest: function(test, context, { error, result, duration, passed, retries }) {
     // },
-
-
     /**
      * Hook that gets executed after the suite has ended
      * @param {Object} suite suite details

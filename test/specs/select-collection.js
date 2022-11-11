@@ -20,7 +20,13 @@ describe('Product Selection', async () => {
 
         await cookies.accept();
 
-        const elem = await $('[title="Mujer"]');
+        if (await home.isResponse()){
+            const popApp = await $('[data-uitest="closeAppPopUp"]');
+            await popApp.click();
+        };
+            
+        const elem = await $('[action="/newsletter"] [type="submit"]');  //$('[title="Mujer"]');
+
         await elem.scrollIntoView();
 
         await subcribeWindow.close();
@@ -28,44 +34,43 @@ describe('Product Selection', async () => {
 
     it('should let you to select the first item of the "Mujer / Camisas y blusas" collection', async () => {
         await home.goToCamisasBlusasCollection();
-        await expect(browser).toHaveUrl('https://www.venca.es/e/20/camisas-y-blusas');
+        await expect(browser).toHaveUrlContaining('venca.es/e/20/camisas-y-blusas');
 
         await collections.selectFirstItem();
-
-        const itemNameB = await selectedItem.$itemName;
-        itemNameB.waitForExist();
-        var itemNameBag = await itemNameB.getText();
         
-        const itemColorB = selectedItem.$color;
+        var itemNameBag = await selectedItem.itemName();
+        console.log('...................................', itemNameBag.getText());
+        
+        const itemColorB = await selectedItem.$color;
         itemColorB.waitForExist();
         var itemColorBagFromPage = await itemColorB.getText();
         var itemColorBag = itemColorBagFromPage.toLowerCase();
 
-        const itemReferenceB = selectedItem.$reference;
+        const itemReferenceB = await selectedItem.$reference;
         itemReferenceB.waitForExist();
         var itemReferenceBag = await itemReferenceB.getText();
 
-        var amountItemsB = selectedItem.$amountItemsBag;
+        var amountItemsB = await selectedItem.$amountItemsBag;
         amountItemsB.waitForExist();
         var amountItemsBagString = await amountItemsB.getText();
         var amountItemsBag = parseInt(amountItemsBagString);
         
         await selectedItem.addToBag();
 
-        const itemNameC = cart.$itemTextCart;
+        const itemNameC = await cart.$itemTextCart;
         itemNameC.waitForExist();
         var itemNameCart = await itemNameC.getText();
 
-        const itemReferenceC = cart.$referenceItemCart;
+        const itemReferenceC = await cart.$referenceItemCart;
         itemReferenceC.waitForExist();
         var referenceItemCart = await itemReferenceC.getText();
 
-        const itemColorC = cart.$colorItemCart;
+        const itemColorC = await cart.$colorItemCart;
         itemColorC.waitForExist();
         var colorItemCartFromPage = await itemColorC.getText();        
         var colorItemCart = colorItemCartFromPage.toLowerCase();        
 
-        const amountItemsC = cart.$amountItemsCart;
+        const amountItemsC = await cart.$amountItemsCart;
         amountItemsC.waitForExist();       
         var amountString = await amountItemsC.getText();
         const string = amountString.split(" ");
