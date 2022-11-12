@@ -14,7 +14,7 @@ class Home extends Generic {
     get $responseCamisasBlusas() { return $('[title="Camisas y blusas"]'); }
     
     async goToCamisasBlusasCollection() {
-        if (await auth.isResponse()){
+        if (await this.isResponse()){
             await this.$responseMenu.click();
             await this.$responseMujer.click();
             await this.$responseCamisasBlusas.click();

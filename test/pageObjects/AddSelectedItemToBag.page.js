@@ -13,7 +13,7 @@ class SelectedItem {
     get $selectSizeL () { return $('[data-id-for-select][data-id-for-select="L"]'); } 
     get $selectSizeLResponse () { return $('[data-id-for-select="L"]'); } 
 
-    get $addButton () { return $('[data-uitest="productAddToCart"]'); } //[class="add"]
+    get $addButton () { return $('[data-uitest="productAddToCart"]'); } 
     get $addButtonResponse () { return $('[data-uitest="productAddToCart"]'); }    
 
     get $goToCart () { return $('[id="cartZone"]'); }

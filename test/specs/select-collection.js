@@ -24,7 +24,10 @@ describe('Product Selection', async () => {
             await popApp.click();
         };
             
-        const elem = await $('[action="/newsletter"] [type="submit"]'); //$('[title="Mujer"]'); 
+        var elem = ' ';
+        await home.isResponse()
+        ? elem = await $('[action="/newsletter"] [type="submit"]')
+        : elem = await $('[title="Mujer"]');  
 
         await elem.scrollIntoView();
 
@@ -69,10 +72,10 @@ describe('Product Selection', async () => {
         var amountItemsCartString = string[1];
         var amountItemsCart = parseInt(amountItemsCartString);
 
-        expect(itemNameBag).toBe(itemNameCart);
-        expect(itemColorBag).toBe(colorItemCart);
-        expect(itemReferenceBag).toBe(referenceItemCart);
-        expect(amountItemsBag + 1).toBe(amountItemsCart);
+        expect(itemNameBag).toEqual(itemNameCart);
+        expect(itemColorBag).toEqual(colorItemCart);
+        expect(itemReferenceBag).toEqual(referenceItemCart);
+        expect(amountItemsBag + 1).toEqual(amountItemsCart);
 
         
     });
