@@ -7,6 +7,12 @@ class Generic {
     }
     async load () {
         await browser.url(this.path);
-    }  
+    } 
+    
+    async isResponse () {
+        if (await browser.requestedCapabilities['goog:chromeOptions'] === undefined)
+            {return false};
+        return true;
+    }
 }
 module.exports = Generic;
