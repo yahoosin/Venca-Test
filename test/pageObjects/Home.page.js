@@ -11,7 +11,7 @@ class Home extends Generic {
     get $collectionBox() { return $('[data-vc-node-id="5"] [data-vc-node-html="5"]'); }
     get $responseMenu() { return $('[data-uitest="navigateShowMenu"]'); }
     get $responseMujer() { return $('[data-uitest="navigationPanelOption"] [alt="Mujer"]'); }
-    get $responseCamisasBlusas() { return $('[data-uitest="navigationCollapse"] [title="Camisas y blusas"]'); }
+    get $responseCamisasBlusas() { return $('[title="Camisas y blusas"]'); }
     
     async goToCamisasBlusasCollection() {
         if (await auth.isResponse()){

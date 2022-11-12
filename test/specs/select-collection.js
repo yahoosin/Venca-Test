@@ -5,7 +5,6 @@ const SubcribeWindow = require('../pageObjects/SubscriptionBanner.page');
 const SelectedItem = require('../pageObjects/AddSelectedItemToBag.page');
 const Cart = require('../pageObjects/CheckingCart.page');
 
-
 const home = new Home();
 const collections = new Collections();
 const cookies = new Cookies();
@@ -25,7 +24,7 @@ describe('Product Selection', async () => {
             await popApp.click();
         };
             
-        const elem = await $('[action="/newsletter"] [type="submit"]');  //$('[title="Mujer"]');
+        const elem = await $('[action="/newsletter"] [type="submit"]'); //$('[title="Mujer"]'); 
 
         await elem.scrollIntoView();
 
@@ -39,7 +38,6 @@ describe('Product Selection', async () => {
         await collections.selectFirstItem();
         
         var itemNameBag = await selectedItem.itemName();
-        console.log('...................................', itemNameBag.getText());
         
         const itemColorB = await selectedItem.$color;
         itemColorB.waitForExist();
@@ -57,30 +55,25 @@ describe('Product Selection', async () => {
         
         await selectedItem.addToBag();
 
-        const itemNameC = await cart.$itemTextCart;
-        itemNameC.waitForExist();
-        var itemNameCart = await itemNameC.getText();
+        var itemNameCart = await cart.itemName();
 
         const itemReferenceC = await cart.$referenceItemCart;
         itemReferenceC.waitForExist();
         var referenceItemCart = await itemReferenceC.getText();
 
-        const itemColorC = await cart.$colorItemCart;
-        itemColorC.waitForExist();
-        var colorItemCartFromPage = await itemColorC.getText();        
+        var colorItemCartFromPage = await cart.itemColor();        
         var colorItemCart = colorItemCartFromPage.toLowerCase();        
 
-        const amountItemsC = await cart.$amountItemsCart;
-        amountItemsC.waitForExist();       
-        var amountString = await amountItemsC.getText();
-        const string = amountString.split(" ");
+        var amountString = await cart.itemAmunt();
+        var string = amountString.split(" ");
         var amountItemsCartString = string[1];
         var amountItemsCart = parseInt(amountItemsCartString);
-       
+
         expect(itemNameBag).toBe(itemNameCart);
         expect(itemColorBag).toBe(colorItemCart);
         expect(itemReferenceBag).toBe(referenceItemCart);
         expect(amountItemsBag + 1).toBe(amountItemsCart);
+
         
     });
 })
