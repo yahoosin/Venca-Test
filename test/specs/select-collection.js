@@ -13,70 +13,68 @@ const selectedItem = new SelectedItem();
 const cart = new Cart();
 
 describe('Product Selection', async () => {
-    beforeEach(async () => {
+	beforeEach(async () => {
 
-        await home.load();
+		await home.load();
 
-        await cookies.accept();
+		await cookies.accept();
 
-        if (await home.isResponse()){
-            const popApp = await $('[data-uitest="closeAppPopUp"]');
-            await popApp.click();
-        };
+		if (await home.isResponse()){
+			const popApp = await $('[data-uitest="closeAppPopUp"]');
+			await popApp.click();
+		}
             
-        var elem = ' ';
-        await home.isResponse()
-        ? elem = await $('[action="/newsletter"] [type="submit"]')
-        : elem = await $('[title="Mujer"]');  
+		var elem = ' ';
+		await home.isResponse()
+			? elem = await $('[action="/newsletter"] [type="submit"]')
+			: elem = await $('[title="Mujer"]');  
 
-        await elem.scrollIntoView();
+		await elem.scrollIntoView();
 
-        await subcribeWindow.close();
-    });
+		await subcribeWindow.close();
+	});
 
-    it('should let you to select the first item of the "Mujer / Camisas y blusas" collection', async () => {
-        await home.goToCamisasBlusasCollection();
-        await expect(browser).toHaveUrlContaining("venca.es/e/20/camisas-y-blusas");
+	it('should let you to select the first item of the "Mujer / Camisas y blusas" collection', async () => {
+		await home.goToCamisasBlusasCollection();
+		await expect(browser).toHaveUrlContaining('venca.es/e/20/camisas-y-blusas');
 
-        await collections.selectFirstItem();
+		await collections.selectFirstItem();
         
-        var itemNameBag = await selectedItem.itemName();
+		var itemNameBag = await selectedItem.itemName();
         
-        const itemColorB = await selectedItem.$color;
-        itemColorB.waitForExist();
-        var itemColorBagFromPage = await itemColorB.getText();
-        var itemColorBag = itemColorBagFromPage.toLowerCase();
+		const itemColorB = await selectedItem.$color;
+		itemColorB.waitForExist();
+		var itemColorBagFromPage = await itemColorB.getText();
+		var itemColorBag = itemColorBagFromPage.toLowerCase();
 
-        const itemReferenceB = await selectedItem.$reference;
-        itemReferenceB.waitForExist();
-        var itemReferenceBag = await itemReferenceB.getText();
+		const itemReferenceB = await selectedItem.$reference;
+		itemReferenceB.waitForExist();
+		var itemReferenceBag = await itemReferenceB.getText();
 
-        var amountItemsB = await selectedItem.$amountItemsBag;
-        amountItemsB.waitForExist();
-        var amountItemsBagString = await amountItemsB.getText();
-        var amountItemsBag = parseInt(amountItemsBagString);
+		var amountItemsB = await selectedItem.$amountItemsBag;
+		amountItemsB.waitForExist();
+		var amountItemsBagString = await amountItemsB.getText();
+		var amountItemsBag = parseInt(amountItemsBagString);
         
-        await selectedItem.addToBag();
+		await selectedItem.addToBag();
 
-        var itemNameCart = await cart.itemName();
+		var itemNameCart = await cart.itemName();
 
-        const itemReferenceC = await cart.$referenceItemCart;
-        itemReferenceC.waitForExist();
-        var referenceItemCart = await itemReferenceC.getText();
+		const itemReferenceC = await cart.$referenceItemCart;
+		itemReferenceC.waitForExist();
+		var referenceItemCart = await itemReferenceC.getText();
 
-        var colorItemCartFromPage = await cart.itemColor();        
-        var colorItemCart = colorItemCartFromPage.toLowerCase();        
+		var colorItemCartFromPage = await cart.itemColor();        
+		var colorItemCart = colorItemCartFromPage.toLowerCase();        
 
-        var amountString = await cart.itemAmunt();
-        var string = amountString.split(" ");
-        var amountItemsCartString = string[1];
-        var amountItemsCart = parseInt(amountItemsCartString);
+		var amountString = await cart.itemAmunt();
+		var string = amountString.split(' ');
+		var amountItemsCartString = string[1];
+		var amountItemsCart = parseInt(amountItemsCartString);
 
-        expect(itemNameBag).toEqual(itemNameCart);
-        expect(itemColorBag).toEqual(colorItemCart);
-        expect(itemReferenceBag).toEqual(referenceItemCart);
-        expect(amountItemsBag + 1).toEqual(amountItemsCart);
-
-        
-    });
-})
+		expect(itemNameBag).toEqual(itemNameCart);
+		expect(itemColorBag).toEqual(colorItemCart);
+		expect(itemReferenceBag).toEqual(referenceItemCart);
+		expect(amountItemsBag + 1).toEqual(amountItemsCart);        
+	});
+});
