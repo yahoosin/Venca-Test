@@ -36,7 +36,7 @@ describe('Product Selection', async () => {
 
     it('should let you to select the first item of the "Mujer / Camisas y blusas" collection', async () => {
         await home.goToCamisasBlusasCollection();
-        await expect(browser).toHaveUrlContaining('venca.es/e/20/camisas-y-blusas');
+        await expect(browser).toHaveUrlContaining("venca.es/e/20/camisas-y-blusas");
 
         await collections.selectFirstItem();
         
